@@ -24,7 +24,8 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  // const context = useContext(UserContext);
+  //const { user, setUser } = useUserContext(UserContext);
+  // const context = useUserContext(UserContext);
 
   // console.log("in App state is: ", context);
   return (

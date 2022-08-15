@@ -7,6 +7,7 @@ export function Yell() {
 export const UserContext = createContext();
 
 export const useUserContext = () => useContext(UserContext);
+
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState([
     { name: "abel", email: "abel@mit.edu", password: "secret", balance: 100 },
