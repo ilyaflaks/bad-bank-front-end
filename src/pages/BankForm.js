@@ -11,6 +11,11 @@ import {
 } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 
+let disabledButton = {
+  backgroundColor: "#e2e2e2",
+  cursor: "not-allowed",
+};
+
 function validateName(name) {
   let regex = /^[a-zA-Z\s]*$/g;
   if (name.length < 2 || regex.test(name) == false) {
@@ -32,7 +37,7 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
-  if (password.length < 6) {
+  if (password.length < 8) {
     console.log("bad pw");
     return false;
   } else {
@@ -52,7 +57,11 @@ function BankForm({ bgcolor, label, handle, successButton }) {
     emailError: "",
     passwordError: "",
   });
+  const [buttonDisabled, setButtonDisabled] = React.useState(true);
 
+  function clearError() {
+    setError({ nameError: "", emailError: "", passwordError: "" });
+  }
   // function validate(field, label) {
   //   if (!field) {
   //     setStatus("Error: " + label);
@@ -114,7 +123,11 @@ function BankForm({ bgcolor, label, handle, successButton }) {
                 id="name"
                 placeholder="Enter Name"
                 value={name}
-                onChange={(e) => setName(e.currentTarget.value)}
+                onChange={(e) => {
+                  setName(e.currentTarget.value);
+                  setButtonDisabled(false);
+                  clearError();
+                }}
               />
               <div style={{ color: "red" }}>{errors.nameError}</div>
               Email Address
@@ -125,7 +138,11 @@ function BankForm({ bgcolor, label, handle, successButton }) {
                 id="email"
                 placeholder="Enter Email"
                 value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
+                onChange={(e) => {
+                  setEmail(e.currentTarget.value);
+                  setButtonDisabled(false);
+                  clearError();
+                }}
               />
               <div style={{ color: "red" }}>{errors.emailError}</div>
               Password <br />
@@ -135,7 +152,11 @@ function BankForm({ bgcolor, label, handle, successButton }) {
                 id="password"
                 placeholder="Enter Password"
                 value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
+                onChange={(e) => {
+                  setPassword(e.currentTarget.value);
+                  setButtonDisabled(false);
+                  clearError();
+                }}
               />
               <div style={{ color: "red" }}>{errors.passwordError}</div>
             </div>
@@ -149,7 +170,16 @@ function BankForm({ bgcolor, label, handle, successButton }) {
               <br />
             </div>
           )}
-          {show ? (
+          {show && buttonDisabled ? (
+            <Button
+              className="btn btn-dark"
+              type="submit"
+              onClick={handleCreate}
+              style={disabledButton}
+            >
+              {label}
+            </Button>
+          ) : show && !buttonDisabled ? (
             <Button
               type="submit"
               className="btn btn-dark"
@@ -181,6 +211,39 @@ function BankForm({ bgcolor, label, handle, successButton }) {
               </Button>
             </div>
           )}
+
+          {/* {show ? (
+            <Button
+              type="submit"
+              className="btn btn-dark"
+              onClick={handleCreate}
+            >
+              {label}
+            </Button>
+          ) : (
+            <div>
+              <Button
+                type="submit"
+                className="btn btn-dark"
+                onClick={clearForm}
+              >
+                {successButton}
+              </Button>
+              <Button>
+                <NavItem
+                  tag={Link}
+                  to="/login"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    margin: "2px",
+                  }}
+                >
+                  Log In
+                </NavItem>
+              </Button>
+            </div>
+          )} */}
         </CardBody>
       </Card>
     </div>
@@ -188,3 +251,37 @@ function BankForm({ bgcolor, label, handle, successButton }) {
 }
 
 export default BankForm;
+
+/////BACKUP BUTTONS
+// {show ? (
+//   <Button
+//     type="submit"
+//     className="btn btn-dark"
+//     onClick={handleCreate}
+//   >
+//     {label}
+//   </Button>
+// ) : (
+//   <div>
+//     <Button
+//       type="submit"
+//       className="btn btn-dark"
+//       onClick={clearForm}
+//     >
+//       {successButton}
+//     </Button>
+//     <Button>
+//       <NavItem
+//         tag={Link}
+//         to="/login"
+//         style={{
+//           textDecoration: "none",
+//           color: "white",
+//           margin: "2px",
+//         }}
+//       >
+//         Log In
+//       </NavItem>
+//     </Button>
+//   </div>
+// )}

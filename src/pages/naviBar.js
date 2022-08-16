@@ -20,71 +20,127 @@ function NaviBar() {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const navigate = useNavigate();
-  // return (
-  //   <Navbar color="light" light expand="md">
-  //     <NavbarBrand tag={Link} to="/">
-  //       BadBank
-  //     </NavbarBrand>
-  //     <Collapse isOpen={isOpen} navbar>
-  //       <Nav className="mr-auto" navbar>
-  //         <NavItem>
-  //           <NavLink tag={Link} to="/createaccount">
-  //             Create Account
-  //           </NavLink>
-  //         </NavItem>
-  //         <NavItem>
-  //           <NavLink tag={Link} to="/login">
-  //             Log In
-  //           </NavLink>
-  //         </NavItem>
-  //         <NavItem>
-  //           <NavLink tag={Link} to="/deposit">
-  //             Deposit
-  //           </NavLink>
-  //         </NavItem>
-  //       </Nav>
-  //     </Collapse>
-  //   </Navbar>
-  // );
+  function mouseOver(e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    let buttonText = e.target.innerText;
+    let message = "";
+    switch (buttonText) {
+      case "BadBank":
+        message = "Home page";
+        break;
+
+      case "Create Account":
+        message = "Click to create a new account";
+        break;
+      case "Log In":
+        message = "Click to Log In to your account";
+        break;
+      case "Deposit":
+        message = "Deposit funds to your account";
+        break;
+      case "Withdraw":
+        message = "Withdraw funds from your account";
+        break;
+      case "Balance":
+        message = "See the balance on your account";
+        break;
+      case "All Data":
+        message = "See All of the Data";
+    }
+
+    const createAcct = document.getElementById("root");
+
+    const tip = document.createElement("div");
+    tip.classList.add("tip-class");
+    const newContent = document.createTextNode(message);
+    tip.appendChild(newContent);
+    createAcct.appendChild(tip);
+    tip.style.top = "45px";
+    // tip.style.top = `${y + 15}px`;
+    tip.style.left = `${x}px`;
+  }
+
+  function clearTip() {
+    const elementToClear = document.getElementsByClassName("tip-class");
+    elementToClear[0].classList.add("tip-clear");
+    elementToClear[0].classList.remove("tip-class");
+  }
 
   return (
     <div>
       <Navbar light expand="md">
-        <NavbarBrand tag={Link} to="/">
+        <NavbarBrand
+          tag={Link}
+          to="/"
+          onMouseOver={mouseOver}
+          onMouseLeave={clearTip}
+          className="navBarItem"
+        >
           BadBank
         </NavbarBrand>
 
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink tag={Link} to="/createaccount">
+            <NavItem className="navBarItem">
+              <NavLink
+                tag={Link}
+                to="/createaccount"
+                onMouseOver={mouseOver}
+                onMouseLeave={clearTip}
+                id="createaccount"
+              >
                 Create Account
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/login">
+            <NavItem className="navBarItem">
+              <NavLink
+                tag={Link}
+                to="/login"
+                onMouseOver={mouseOver}
+                onMouseLeave={clearTip}
+              >
                 Log In
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/deposit">
+            <NavItem className="navBarItem">
+              <NavLink
+                tag={Link}
+                to="/deposit"
+                onMouseOver={mouseOver}
+                onMouseLeave={clearTip}
+              >
                 Deposit
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/withdraw">
+            <NavItem className="navBarItem">
+              <NavLink
+                tag={Link}
+                to="/withdraw"
+                onMouseOver={mouseOver}
+                onMouseLeave={clearTip}
+              >
                 Withdraw
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/balance">
+            <NavItem className="navBarItem">
+              <NavLink
+                tag={Link}
+                to="/balance"
+                onMouseOver={mouseOver}
+                onMouseLeave={clearTip}
+              >
                 Balance
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/alldata">
+            <NavItem className="navBarItem">
+              <NavLink
+                tag={Link}
+                to="/alldata"
+                onMouseOver={mouseOver}
+                onMouseLeave={clearTip}
+              >
                 All Data
               </NavLink>
             </NavItem>

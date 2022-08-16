@@ -27,7 +27,6 @@ function App() {
   //const { user, setUser } = useUserContext(UserContext);
   // const context = useUserContext(UserContext);
 
-  // console.log("in App state is: ", context);
   return (
     <div>
       <Router>

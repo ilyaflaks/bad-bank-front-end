@@ -12,7 +12,23 @@ import {
   Label,
 } from "reactstrap";
 
-function Transaction({ label, handleTransact, handleChange, balance }) {
+function Transaction({
+  label,
+  handleTransact,
+  handleChange,
+  balance,
+  isError,
+  success,
+  errorMessage,
+}) {
+  let disabledButton = {
+    backgroundColor: "#e2e2e2",
+    cursor: "not-allowed",
+  };
+  const [buttonDisabled, setButtonDisabled] = React.useState(true);
+
+  console.log("error messg in Transaction: " + errorMessage);
+
   return (
     <Card
       style={{
@@ -22,19 +38,56 @@ function Transaction({ label, handleTransact, handleChange, balance }) {
       <Form onSubmit={handleTransact}>
         <FormGroup>
           <h2>{label}</h2>
-
+          <CardSubtitle>
+            Please enter only positive numbers <br /> Use " . " for a decimal
+            point
+          </CardSubtitle>
+          <br />
           <Label for="amount">Current Balance: {balance}</Label>
 
           <Input
             id="amount"
             placeholder="Enter Amount"
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e);
+              setButtonDisabled(false);
+            }}
           />
         </FormGroup>
       </Form>
-      <Button type="submit" onClick={handleTransact}>
-        Submit
-      </Button>
+      {isError ? (
+        <div>
+          <h4
+            style={{
+              color: "red",
+            }}
+          >
+            invalid input {errorMessage}
+          </h4>
+        </div>
+      ) : (
+        <p> </p>
+      )}
+      {success ? (
+        <h4
+          style={{
+            color: "green",
+          }}
+        >
+          success!
+        </h4>
+      ) : (
+        <p> </p>
+      )}
+      {buttonDisabled ? (
+        <Button type="submit" style={disabledButton} onClick={handleTransact}>
+          Submit
+        </Button>
+      ) : (
+        <Button type="submit" onClick={handleTransact}>
+          Submit
+        </Button>
+      )}
     </Card>
   );
 }
